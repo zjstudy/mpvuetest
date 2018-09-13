@@ -16,7 +16,7 @@
     "list":[
       {
         "pagePath":"pages/index/main",
-        "text":"推荐音乐"
+        "text":"推荐音乐1"
       },
       {
         "pagePath":"pages/counter/main",
