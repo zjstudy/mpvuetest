@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/logs/main",
+    "pages/counter/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ff3366",
+    "navigationBarTitleText": "测试DEMO",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor":"red",
+    "position":"top",
+    "list":[
+      {
+        "pagePath":"pages/index/main",
+        "text":"推荐音乐"
+      },
+      {
+        "pagePath":"pages/counter/main",
+        "text":"热歌榜"
+      },
+      {
+        "pagePath":"pages/counter/main",
+        "text":"搜索"
+      }
+    ]
+  }
+}

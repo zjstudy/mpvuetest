@@ -1,0 +1,157 @@
+<template>
+  <div class="container" @click="clickHandle('test click', $event)">
+
+    <div class="userinfo" @click="bindViewTap">
+      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+      <div class="userinfo-nickname">
+        <card :text="userInfo.nickName"></card>
+      </div>
+    </div>
+    <button open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @clcik="getUserInfof">获取权限</button>
+    <div class="usermotto">
+      <div class="user-motto">
+        <card :text="motto"></card>
+      </div>
+    </div>
+
+    <form class="form-container">
+      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
+      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
+    </form>
+    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+    <!--<div class="footer">-->
+      <!--<footert :text="motto"></footert>-->
+    <!--</div>-->
+  </div>
+</template>
+
+<script>
+import card from '@/components/card'
+import cardt from '@/components/cardt'
+import footert from '@/components/footers'
+export default {
+  data () {
+    return {
+      motto: 'Hello World',
+      userInfo: {},
+      root:false
+    }
+  },
+
+  components: {
+    card,
+    cardt,
+    footert
+  },
+
+  methods: {
+    bindViewTap () {
+      const url = '../logs/main'
+      wx.navigateTo({ url })
+    },
+    setuserdata(){
+      wx.login({
+        success: () => {
+          wx.getUserInfo({
+            success: (res) => {
+              console.log("写入信息")
+              this.root=true
+              console.log(this.root)
+              this.userInfo = res.userInfo
+            }
+          })
+        }
+      })
+      return this.root
+    },
+    getUserInfof () {
+      let _this = this
+      wx.getSetting({
+        success: function(res){
+          console.log("判断是否授权")
+          if (res.authSetting['scope.userInfo']) {
+            wx.getUserInfo({
+              success: function(res) {
+                //用户已经授权过
+                console.log('用户已经授权过')
+                _this.userInfo = res.userInfo
+                if(_this.root){
+                  console.log("111")
+                  wx.showToast({
+                    title:"已授权"
+                  })
+                }
+                _this.root = true
+              }
+            })
+          }else{
+            console.log('用户还未授权过')
+          }
+        }
+      })
+    },
+    bindGetUserInfo(e) {
+      // console.log(e.mp.detail.rawData)
+      if (e.mp.detail.rawData){
+        //用户按了允许授权按钮
+        console.log('用户按了允许授权按钮')
+        this.getUserInfof()
+      } else {
+        //用户按了拒绝按钮
+        console.log('用户按了拒绝按钮')
+      }
+    },
+    clickHandle (msg, ev) {
+      // console.log('clickHandle:', msg, ev)
+    }
+  },
+
+  created () {
+    // 调用应用实例的方法获取全局数据
+    this.getUserInfof()
+  }
+}
+</script>
+
+<style scoped>
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer{
+  width: 100%;
+  height: 1rem;
+  position: fixed;
+  bottom: 0px;
+}
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 150px;
+}
+
+.form-control {
+  display: block;
+  padding: 0 12px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+}
+
+.counter {
+  display: inline-block;
+  margin: 10px auto;
+  padding: 5px 10px;
+  color: blue;
+  border: 1px solid blue;
+}
+</style>
