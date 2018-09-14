@@ -6,17 +6,18 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#ff3366",
+    "navigationBarBackgroundColor": "#d43c33",
     "navigationBarTitleText": "测试DEMO",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "selectedColor":"red",
     "position":"top",
+    "borderStyle":"black",
     "list":[
       {
         "pagePath":"pages/index/main",
-        "text":"推荐音乐1"
+        "text":"推荐音乐"
       },
       {
         "pagePath":"pages/counter/main",
