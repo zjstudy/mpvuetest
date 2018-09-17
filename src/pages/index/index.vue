@@ -28,24 +28,7 @@
         <i class="iconfont iconsize">&#xe610;</i>
       </div>
     </div>
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
-    </div>
-    <button open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @clcik="getUserInfof">获取权限</button>
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
-    </div>
 
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
     <!--<div class="footer">-->
       <!--<footert :text="motto"></footert>-->
     <!--</div>-->
@@ -102,66 +85,15 @@ export default {
       const url = '../logs/main'
       wx.navigateTo({ url })
     },
-    setuserdata(){
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: (res) => {
-              console.log("写入信息")
-              this.root=true
-              console.log(this.root)
-              this.userInfo = res.userInfo
-            }
-          })
-        }
-      })
-      return this.root
-    },
-    getUserInfof () {
-      let _this = this
-      wx.getSetting({
-        success: function(res){
-          console.log("判断是否授权")
-          if (res.authSetting['scope.userInfo']) {
-            wx.getUserInfo({
-              success: function(res) {
-                //用户已经授权过
-                console.log('用户已经授权过')
-                _this.userInfo = res.userInfo
-                if(_this.root){
-                  console.log("111")
-                  wx.showToast({
-                    title:"已授权"
-                  })
-                }
-                _this.root = true
-              }
-            })
-          }else{
-            console.log('用户还未授权过')
-          }
-        }
-      })
-    },
-    bindGetUserInfo(e) {
-      // console.log(e.mp.detail.rawData)
-      if (e.mp.detail.rawData){
-        //用户按了允许授权按钮
-        console.log('用户按了允许授权按钮')
-        this.getUserInfof()
-      } else {
-        //用户按了拒绝按钮
-        console.log('用户按了拒绝按钮')
-      }
-    },
-    clickHandle (msg, ev) {
-      // console.log('clickHandle:', msg, ev)
+    clickHandle(){
+
     }
+
   },
 
   created () {
     // 调用应用实例的方法获取全局数据
-    this.getUserInfof()
+    // this.getUserInfof()
   }
 }
 </script>

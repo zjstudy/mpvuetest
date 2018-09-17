@@ -1,8 +1,11 @@
 {
   "pages": [
+    "pages/login/main",
     "pages/index/main",
     "pages/logs/main",
-    "pages/counter/main"
+    "pages/counter/main",
+    "pages/search/main",
+    "pages/hotmusic/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -20,11 +23,11 @@
         "text":"推荐音乐"
       },
       {
-        "pagePath":"pages/counter/main",
+        "pagePath":"pages/hotmusic/main",
         "text":"热歌榜"
       },
       {
-        "pagePath":"pages/counter/main",
+        "pagePath":"pages/search/main",
         "text":"搜索"
       }
     ]

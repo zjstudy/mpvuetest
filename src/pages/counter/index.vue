@@ -6,19 +6,23 @@
       <button @click="decrement">-</button>
     </p>
 
-    <a href="/pages/index/main" class="home">去往首页</a>
+    <a class="home" @click="gohome()">去往首页</a>
+    <footers></footers>
   </div>
 </template>
 
 <script>
 // Use Vuex
 import store from './store'
-
+import footers from '@/components/footers'
 export default {
   computed: {
     count () {
       return store.state.count
     }
+  },
+  components: {
+    footers
   },
   methods: {
     increment () {
@@ -40,6 +44,11 @@ export default {
     },
     getimg(){
 
+    },
+    gohome(){
+      wx.switchTab({
+        url: '../index/main'
+      });
     }
   },
   created () {
