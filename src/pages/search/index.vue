@@ -27,7 +27,8 @@ export default {
         {data:"香蜜沉沉烬如霜"},
         {data:"戳爷新专辑"},
         {data:"窦佳嫄"},
-        {data:"陈奕迅"}
+        {data:"陈奕迅"},
+        {data:"周杰伦"}
       ]
     }
   },
