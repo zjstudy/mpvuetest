@@ -62,13 +62,13 @@ export default {
     }
     .dingwei{
       position: absolute;
-      top: 12rpx;
+      top: 15rpx;
       left: 20rpx;
       color: #333;
     }
     input{
       width: 100%;
-      height: 25rpx;
+      height: 60rpx;
       font-size: .3rem;
       padding-left: 60rpx;
       box-sizing: border-box;
