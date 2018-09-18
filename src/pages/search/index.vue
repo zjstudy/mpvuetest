@@ -28,7 +28,8 @@ export default {
         {data:"戳爷新专辑"},
         {data:"窦佳嫄"},
         {data:"陈奕迅"},
-        {data:"周杰伦"}
+        {data:"周杰伦"},
+        {data:"张学友"}
       ]
     }
   },
