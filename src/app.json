@@ -5,7 +5,8 @@
     "pages/logs/main",
     "pages/counter/main",
     "pages/search/main",
-    "pages/hotmusic/main"
+    "pages/hotmusic/main",
+    "pages/musicplay/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

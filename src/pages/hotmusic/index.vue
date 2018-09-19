@@ -15,7 +15,7 @@
             时光街乐队-平行世界
           </div>
         </div>
-        <i class="iconfont iconsize">&#xe610;</i>
+        <i class="iconfont iconsize"  @click="tabDetails">&#xe610;</i>
       </div>
     </div>
   </div>
@@ -34,7 +34,11 @@ export default {
   },
 
   methods: {
-
+    tabDetails(e){
+      wx.navigateTo({
+        url: '../musicplay/main'
+      })
+    }
   },
 
   created () {
