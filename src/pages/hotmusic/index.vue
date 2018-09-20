@@ -2,6 +2,7 @@
   <div class="container">
     <div class="header">
       <div class="left-img"></div>
+      <span>更新时间{{update_time}}</span>
     </div>
     <div class="newmusic">
       <div class="musiclist" v-for="i in 13" :key="i">
@@ -26,6 +27,7 @@
 export default {
   data () {
     return {
+      update_time:""
     }
   },
 
@@ -38,12 +40,28 @@ export default {
       wx.navigateTo({
         url: '../musicplay/main'
       })
+    },
+    getupdatatime(){
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      this.update_time =  currentdate;
     }
   },
 
   created () {
     // 调用应用实例的方法获取全局数据
     // this.getUserInfof()
+    this.getupdatatime()
   }
 }
 </script>
@@ -53,7 +71,7 @@ export default {
   width: 100%;
   .header{
     display: flex;
-    align-items: center;
+    flex-direction: column;
     height: 292rpx;
     width: 100%;
     margin-bottom: 20rpx;
@@ -61,11 +79,17 @@ export default {
     background-size: contain;
     .left-img{
       margin-left: 40rpx;
+      margin-top: 50rpx;
       width: 142px;
       height: 67px;
       background: url("https://s3.music.126.net/m/s/img/index_icon_2x.png") no-repeat;
       background-size: 166px 97px;
       background-position: -24px -30px;
+    }
+    span{
+      margin: 20rpx 0 0 40rpx;
+      color: white;
+      font-size: .3rem;
     }
   }
   .newmusic{
