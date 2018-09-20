@@ -3,11 +3,12 @@
     <div class="search-input">
       <div class="input-box">
         <i class="iconfont dingwei">&#xe621;</i>
-        <input type="text" placeholder="搜索歌曲、歌手、专辑">
+        <input type="text" placeholder="搜索歌曲、歌手、专辑" v-model="searchdata">
+        <i v-if="clearshow" @click="clearinput" class="iconfont clearicon">&#xe611;</i>
       </div>
     </div>
     <div class="search-tag">
-      <div class="tag-list" v-for="(item,index) in content" :key="index">
+      <div class="tag-list" v-for="(item,index) in content" :key="index" @click="searchclick(item.data)">
         {{item.data}}
       </div>
     </div>
@@ -19,6 +20,8 @@
 export default {
   data () {
     return{
+      searchdata:"",
+      clearshow:false,
       content:[
         {data:"再见Hip-Hop"},
         {data:"中国新说唱"},
@@ -39,9 +42,24 @@ export default {
   },
 
   methods: {
-
+    searchclick(val){
+      this.searchdata = val;
+    },
+    clearinput(){
+      this.searchdata = "";
+    }
   },
+  watch: {
+    searchdata:function (val) {
+      console.log(val)
 
+      if(this.searchdata != ""){
+        this.clearshow = true
+      } else {
+        this.clearshow = false
+      }
+    }
+  },
   created () {
     // 调用应用实例的方法获取全局数据
     // this.getUserInfof()
@@ -67,6 +85,14 @@ export default {
       top: 15rpx;
       left: 20rpx;
       color: #333;
+    }
+    .clearicon{
+      position: absolute;
+      top: 10rpx;
+      right: 15rpx;
+      z-index: 999;
+      color: #333;
+      font-size: .4rem;
     }
     input{
       width: 100%;
