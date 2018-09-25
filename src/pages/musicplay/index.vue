@@ -54,10 +54,25 @@ export default {
     },
     playcontrol(){
       this.pause =  !this.pause
+    },
+    setbgdataval(id){
+      console.log("传输ID="+id)
+      // let dats = store.commit('getlistdata')
+      let datas = this.$store.getters.getlistdata(id)
+      this.bgimg = datas.bgimg
+      this.core_img = datas.core_img
     }
 
   },
+  onLoad:function (options) {
+    let arr = Object.getOwnPropertyNames(options)
+    if(arr.length){
+      this.setbgdataval(options.id)
+    }
 
+    // console.log(this.bgimg)
+    // console.log(this.core_img)
+  },
   created () {
     // 调用应用实例的方法获取全局数据
     // this.getUserInfof()
@@ -137,7 +152,7 @@ export default {
         }
         .rotate{
           transition: 0.5s;
-          animation: rotate 10s linear infinite;
+          animation: rotate 20s linear infinite;
         }
         .pause{
           animation-play-state:paused;

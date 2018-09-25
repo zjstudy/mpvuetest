@@ -82,21 +82,22 @@ export default {
     }
     .dingwei{
       position: absolute;
-      top: 15rpx;
+      top: 25rpx;
       left: 20rpx;
       color: #333;
     }
     .clearicon{
       position: absolute;
+      display: block;
       top: 10rpx;
       right: 15rpx;
       z-index: 999;
       color: #333;
-      font-size: .4rem;
+      font-size: .6rem;
     }
     input{
       width: 100%;
-      height: 60rpx;
+      height: 80rpx;
       font-size: .3rem;
       padding-left: 60rpx;
       box-sizing: border-box;

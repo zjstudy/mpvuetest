@@ -17,6 +17,10 @@ const store = new Vuex.Store({
     decrement: (state) => {
       const obj = state
       obj.count -= 1
+    },
+    getlistdata: (state) => {
+
+      return state.musiclist
     }
   }
 })

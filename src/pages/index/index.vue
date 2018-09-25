@@ -17,15 +17,15 @@
       <span>最新音乐</span>
     </div>
     <div class="newmusic">
-      <div class="musiclist" v-for="i in 6" :key="i">
+      <div class="musiclist" v-for="(item,index) in musiclist" :key="index">
         <div class="list-left">
-          <div class="music-title">时光带我飞</div>
+          <div class="music-title">{{item.title}}</div>
           <div class="music-singer">
-            <i class="iconfont" v-if="i<3">&#xe600;</i>
-            时光街乐队-平行世界
+            <i class="iconfont" v-if="index<3">&#xe600;</i>
+            {{item.singer}}
           </div>
         </div>
-        <i class="iconfont iconsize" @click="tabDetails">&#xe610;</i>
+        <i class="iconfont iconsize" @click="tabDetails(index)">&#xe610;</i>
       </div>
     </div>
 
@@ -68,6 +68,7 @@ export default {
           text:"「毒性电子」EDM TRAP 深陷迷幻的电音"
         },
       ],
+      musiclist:[],
       motto: 'Hello World',
       userInfo: {},
       root:false
@@ -88,10 +89,14 @@ export default {
     clickHandle(){
 
     },
-    tabDetails(e){
+    tabDetails(num){
       wx.navigateTo({
-        url: '../musicplay/main'
+        url: '../musicplay/main?id='+num
       })
+    },
+    setmusiclist(){     //进入页面初始化歌曲列表数据
+      let datas = this.$store.getters.getlistdata()
+      this.musiclist = datas
     }
 
   },
@@ -99,6 +104,7 @@ export default {
   created () {
     // 调用应用实例的方法获取全局数据
     // this.getUserInfof()
+    this.setmusiclist()
   }
 }
 </script>

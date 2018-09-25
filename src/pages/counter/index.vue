@@ -27,20 +27,11 @@ export default {
   methods: {
     increment () {
       store.commit('increment')
-      wx.scanCode({
-        success: (res) => {
-          console.log(res)
-        }
-      })
+
     },
     decrement () {
       store.commit('decrement')
-      wx.chooseImage({
-        count:1,
-        success:(res) =>{
-          console.log(res.tempFilePaths)
-        }
-      })
+
     },
     getimg(){
 
