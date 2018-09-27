@@ -30,9 +30,13 @@
 export default {
   data () {
     return {
+      title:"",
       bgimg: 'https://p3.music.126.net/eGEyfHzRtT_eHfBqdlFA6Q==/109951163221163562.jpg',
       core_bg_img: 'https://s3.music.126.net/m/s/img/disc-plus.png?b700b62e1971b351dcb8b8ce1c9ceea3',
       core_img:'http://p1.music.126.net/ze_ggtReuHBLF2o-wUolFw==/109951163221161145.jpg?imageView&thumbnail=360y360&quality=75&tostatic=0',
+      musicurl:"",
+      singer:"",
+      backgroundAudioManager:"",
       pause:false,
       userInfo: {},
       root:false
@@ -46,6 +50,9 @@ export default {
   methods: {
     rotatecontrol(){
       let _this = this
+      this.pause = false
+      wx.stopBackgroundAudio()
+      console.log(this.backgroundAudioManager)
       // console.log(this.pause)
       // setInterval(function () {
       //   _this.pause =  !_this.pause
@@ -54,20 +61,54 @@ export default {
     },
     playcontrol(){
       this.pause =  !this.pause
+      if(this.pause){
+        // wx.stopBackgroundAudio()
+        this.backgroundAudioManager.pause()
+        console.log("暂停")
+      }else {
+        this.backgroundAudioManager.play()
+        console.log("播放")
+      }
     },
-    setbgdataval(id){
+    musicstatus:function () {
+      // const backmusic =  wx.getBackgroundAudioManager()
+      // backmusic.src = this.musicurl
+      // backmusic.title="天天音乐";
+      // backmusic.play();
+      // return backmusic
+
+      this.backgroundAudioManager = wx.getBackgroundAudioManager()
+      this.backgroundAudioManager.title = this.title
+      this.backgroundAudioManager.epname = this.title
+      this.backgroundAudioManager.singer = this.singer
+      this.backgroundAudioManager.coverImgUrl = this.core_img
+      this.backgroundAudioManager.src = this.musicurl
+    },
+
+    setbgdataval(id,fun){ //在store中获取背景图片
+      let datas
       console.log("传输ID="+id)
       // let dats = store.commit('getlistdata')
-      let datas = this.$store.getters.getlistdata(id)
+      if(fun == 'hotmusic'){
+        datas = this.$store.getters.gethotmusic(id)
+      } else {
+        datas = this.$store.getters.getlistdata(id)
+      }
       this.bgimg = datas.bgimg
       this.core_img = datas.core_img
+      this.musicurl = datas.musicurl
+      this.title = datas.title
+      this.singer = datas.singer
+      this.musicstatus()
     }
 
   },
   onLoad:function (options) {
+    this.rotatecontrol()//每次进入执行，重置页面
+
     let arr = Object.getOwnPropertyNames(options)
     if(arr.length){
-      this.setbgdataval(options.id)
+      this.setbgdataval(options.id,options.fun)
     }
 
     // console.log(this.bgimg)

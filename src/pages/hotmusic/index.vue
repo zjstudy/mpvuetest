@@ -5,18 +5,18 @@
       <span>更新时间{{update_time}}</span>
     </div>
     <div class="newmusic">
-      <div class="musiclist" v-for="i in 13" :key="i">
-        <span :class="i<3?'red-class':''">
-          <text v-if="i<9">0</text>{{i+1}}
+      <div class="musiclist" v-for="(item,index) in hotmusiclist" :key="index">
+        <span :class="index<3?'red-class':''">
+          <text v-if="index<9">0</text>{{index+1}}
         </span>
         <div class="list-left">
-          <div class="music-title">时光带我飞</div>
+          <div class="music-title">{{item.title}}</div>
           <div class="music-singer">
             <i class="iconfont" v-if="i<7">&#xe600;</i>
-            时光街乐队-平行世界
+            {{item.singer}}
           </div>
         </div>
-        <i class="iconfont iconsize"  @click="tabDetails">&#xe610;</i>
+        <i class="iconfont iconsize"  @click="tabDetails(index)">&#xe610;</i>
       </div>
     </div>
   </div>
@@ -27,7 +27,8 @@
 export default {
   data () {
     return {
-      update_time:""
+      update_time:"",
+      hotmusiclist:[]
     }
   },
 
@@ -36,9 +37,9 @@ export default {
   },
 
   methods: {
-    tabDetails(e){
+    tabDetails(index){
       wx.navigateTo({
-        url: '../musicplay/main'
+        url: '../musicplay/main?id='+index+'&&fun=hotmusic'
       })
     },
     getupdatatime(){
@@ -55,6 +56,10 @@ export default {
       }
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       this.update_time =  currentdate;
+    },
+    gethotmusiclist(){  //初始化音乐列表
+      let datas = this.$store.getters.gethotmusic()
+      this.hotmusiclist = datas
     }
   },
 
@@ -62,6 +67,7 @@ export default {
     // 调用应用实例的方法获取全局数据
     // this.getUserInfof()
     this.getupdatatime()
+    this.gethotmusiclist()
   }
 }
 </script>
@@ -112,18 +118,20 @@ export default {
       }
       .list-left{
         height: 90rpx;
-        width: 600rpx;
-        margin-left: 10rpx;
+        width: 580rpx;
         border-bottom: 1px solid rgba(0,0,0,.1);
         .music-title{
           font-size: 35rpx;
           line-height: 60rpx;
         }
         .music-singer{
-          display: flex;
+          width: 100%;
           font-size: 25rpx;
           line-height: 30rpx;
           color: #333333;
+          overflow: hidden;/*超出部分隐藏*/
+          white-space: nowrap;/*不换行*/
+          text-overflow:ellipsis;/*超出部分文字以...显示*/
           i{
             font-size: 30rpx;
             color: red;

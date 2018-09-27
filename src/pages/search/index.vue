@@ -22,18 +22,7 @@ export default {
     return{
       searchdata:"",
       clearshow:false,
-      content:[
-        {data:"再见Hip-Hop"},
-        {data:"中国新说唱"},
-        {data:"泰勒·斯威夫特"},
-        {data:"可不可以"},
-        {data:"香蜜沉沉烬如霜"},
-        {data:"戳爷新专辑"},
-        {data:"窦佳嫄"},
-        {data:"陈奕迅"},
-        {data:"周杰伦"},
-        {data:"张学友"}
-      ]
+      content:""
     }
   },
 
@@ -47,6 +36,11 @@ export default {
     },
     clearinput(){
       this.searchdata = "";
+    },
+    getsearchlist(){
+      let datalist = this.$store.getters.gethotsearch()
+      this.content = datalist
+      console.log(datalist)
     }
   },
   watch: {
@@ -63,6 +57,7 @@ export default {
   created () {
     // 调用应用实例的方法获取全局数据
     // this.getUserInfof()
+    this.getsearchlist()
   }
 }
 </script>
